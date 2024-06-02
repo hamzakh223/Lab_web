@@ -1,0 +1,57 @@
+<##Task1>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Invitations</title>
+</head>
+<body>
+    <h1>Party Invitations</h1>
+    <div id="invitations"></div>
+
+    <script>
+        // Sample list of guests
+        const guests = [
+            { name: 'Alice', age: 25, rsvp: true },
+            { name: 'Bob', age: 30, rsvp: false },
+            { name: 'Charlie', age: 35, rsvp: true }
+        ];
+
+        // Function to generate invitation messages
+        function generateInvitations(guestList, ...additionalDetails) {
+            return guestList.map(guest => {
+                const { name, ...rest } = guest;
+                let message = `Dear ${name},<br>`;
+                
+                additionalDetails.forEach(detail => {
+                    message += `${detail}<br>`;
+                });
+                
+                return message;
+            });
+        }
+
+        // Additional details to include in the invitation message
+        const details = [
+            "You are cordially invited to our annual party.",
+            "Date: June 25, 2024",
+            "Time: 6:00 PM",
+            "Location: 123 Party Lane, Fun Town"
+        ];
+
+        // Generate the invitations
+        const invitations = generateInvitations(guests, ...details);
+
+        // Display the invitations
+        const invitationsDiv = document.getElementById('invitations');
+        invitations.forEach(invitation => {
+            const invitationElement = document.createElement('div');
+            invitationElement.innerHTML = invitation;
+            invitationElement.style.marginBottom = '20px';
+            invitationsDiv.appendChild(invitationElement);
+        });
+    </script>
+</body>
+</html>

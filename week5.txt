@@ -1,0 +1,236 @@
+#task1#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Array Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reverse Array Example</h1>
+        <p>Enter a comma-separated list of numbers:</p>
+        <input type="text" id="inputArray" placeholder="e.g., 1, 2, 3">
+        <button onclick="handleReverseArray()">Reverse Array</button>
+        <h2>Reversed Array:</h2>
+        <p id="outputArray"></p>
+    </div>
+
+    <script>
+        function reverseArray(arr) {
+            // Create a new empty array to hold the reversed elements
+            let reversedArr = [];
+            
+            // Loop through the input array from the last element to the first
+            for (let i = arr.length - 1; i >= 0; i--) {
+                // Push each element into the new array
+                reversedArr.push(arr[i]);
+            }
+            
+            // Return the new array with the elements reversed
+            return reversedArr;
+        }
+
+        function handleReverseArray() {
+            // Get the input value as a string
+            const input = document.getElementById('inputArray').value;
+            
+            // Split the string by commas to get an array of strings, then map to numbers
+            const inputArray = input.split(',').map(Number);
+            
+            // Get the reversed array using the reverseArray function
+            const reversedArray = reverseArray(inputArray);
+            
+            // Display the reversed array
+            document.getElementById('outputArray').innerText = reversedArray.join(', ');
+        }
+    </script>
+</body>
+</html>
+
+#Task2#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Information</h1>
+        <p>Enter car details:</p>
+        <input type="text" id="brand" placeholder="Brand">
+        <input type="text" id="model" placeholder="Model">
+        <input type="number" id="year" placeholder="Year">
+        <button onclick="displayCarInfo()">Show Car Info</button>
+        <h2>Car Info:</h2>
+        <p id="carInfo"></p>
+    </div>
+
+    <script>
+        function carInfo(car) {
+            return `The ${car.brand} ${car.model} was manufactured in ${car.year}.`;
+        }
+
+        function displayCarInfo() {
+            const brand = document.getElementById('brand').value;
+            const model = document.getElementById('model').value;
+            const year = document.getElementById('year').value;
+
+            const car = {
+                brand: brand,
+                model: model,
+                year: year
+            };
+
+            const info = carInfo(car);
+            document.getElementById('carInfo').innerText = info;
+        }
+    </script>
+</body>
+</html>
+
+#Task3#
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Function to Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Apply Function to Array</h1>
+        <p>Enter a comma-separated list of numbers:</p>
+        <input type="text" id="inputArray" placeholder="e.g., 1, 2, 3">
+        <p>Choose a function:</p>
+        <button onclick="applyFunctionToArray((x) => x * 2)">Multiply by 2</button>
+        <button onclick="applyFunctionToArray((x) => x + 3)">Add 3</button>
+        <button onclick="applyFunctionToArray((x) => x ** 2)">Square</button>
+        <h2>Result:</h2>
+        <p id="resultArray"></p>
+    </div>
+
+    <script>
+        function applyFunction(arr, func) {
+            return arr.map(func);
+        }
+
+        function applyFunctionToArray(func) {
+            // Get the input value as a string
+            const input = document.getElementById('inputArray').value;
+            
+            // Split the string by commas to get an array of strings, then map to numbers
+            const inputArray = input.split(',').map(Number);
+            
+            // Get the result array using the applyFunction function
+            const resultArray = applyFunction(inputArray, func);
+            
+            // Display the result array
+            document.getElementById('resultArray').innerText = resultArray.join(', ');
+        }
+    </script>
+</body>
+</html>

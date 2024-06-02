@@ -1,0 +1,198 @@
+#Task1#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication with Local Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="status"></h1>
+        <div id="loginForm">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+        <div id="logoutForm" class="hidden">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple authentication check (replace with actual authentication logic)
+            if (username === 'user' && password === 'pass') {
+                // Store user credentials securely in Local Storage
+                localStorage.setItem('username', username);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Update UI based on login status
+                updateUI();
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        // Function to handle logout
+        function logout() {
+            // Remove user credentials from Local Storage
+            localStorage.removeItem('username');
+            localStorage.removeItem('isLoggedIn');
+            
+            // Update UI based on login status
+            updateUI();
+        }
+
+        // Function to update UI based on login status
+        function updateUI() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const statusElement = document.getElementById('status');
+            const loginForm = document.getElementById('loginForm');
+            const logoutForm = document.getElementById('logoutForm');
+            
+            if (isLoggedIn) {
+                const username = localStorage.getItem('username');
+                statusElement.innerText = `Welcome, ${username}!`;
+                loginForm.classList.add('hidden');
+                logoutForm.classList.remove('hidden');
+            } else {
+                statusElement.innerText = 'Please log in.';
+                loginForm.classList.remove('hidden');
+                logoutForm.classList.add('hidden');
+            }
+        }
+
+        // Check if the user is already logged in when the page loads
+        document.addEventListener('DOMContentLoaded', updateUI);
+    </script>
+</body>
+</html>
+
+#Task2#
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, button, textarea {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Invitation Messages</h1>
+        <textarea id="guests" placeholder="Enter guest list as JSON"></textarea>
+        <input type="text" id="additionalDetails" placeholder="Additional details (optional)">
+        <button onclick="generateAndDisplayInvitations()">Generate Invitations</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function generateInvitations(guests, ...additionalDetails) {
+            return guests.map(guest => {
+                const details = additionalDetails.length > 0 ? ` Details: ${additionalDetails.join(', ')}` : '';
+                return `Dear ${guest.name}, you are invited to the party!${details}`;
+            });
+        }
+
+        function generateAndDisplayInvitations() {
+            const guestsInput = document.getElementById('guests').value;
+            const additionalDetailsInput = document.getElementById('additionalDetails').value;
+            let guests;
+            try {
+                guests = JSON.parse(guestsInput);
+            } catch (error) {
+                alert('Invalid JSON input for guests.');
+                return;
+            }
+
+            const additionalDetails = additionalDetailsInput ? additionalDetailsInput.split(',') : [];
+            const invitations = generateInvitations(guests, ...additionalDetails);
+
+            const output = document.getElementById('output');
+            output.innerHTML = invitations.map(invitation => `<p>${invitation}</p>`).join('');
+        }
+    </script>
+</body>
+</html>
